@@ -1,0 +1,10 @@
+{
+  "name": "qblog",
+  "version": "0.0.0",
+  "description": "an open-source blogging platform",
+  "main": "app.js",
+  "repository": "github:qwamber/qblog",
+  "keywords": ["blog", "blogging", "open", "source", "node"],
+  "author": "Marco Burstein <marco@marco.how>",
+  "license": "Apache-2.0"
+}
