@@ -4,7 +4,26 @@
   "description": "an open-source blogging platform",
   "main": "app.js",
   "repository": "github:qwamber/qblog",
-  "keywords": ["blog", "blogging", "open", "source", "node"],
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "blog",
+    "blogging",
+    "open",
+    "source",
+    "node"
+  ],
   "author": "Marco Burstein <marco@marco.how>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1"
+  }
 }
