@@ -1,8 +1,11 @@
 let express = require('express');
+let templates = require('./src/util/templates.js');
 
 let app = express();
 
-app.get('/', (req, res) => { res.send('Welcome to Qblog'); });
+app.get('/', (req, res) => {
+    res.send(templates.get('index')());
+});
 
 let port = process.env.PORT || 8080;
 
