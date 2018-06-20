@@ -1,5 +1,8 @@
-let express = require('express');
 let path = require('path');
+let express = require('express');
+let webpack = require('webpack');
+let webpackDevMiddleware = require('webpack-dev-middleware');
+let webpackCompiler = webpack(require('./.webpack.config.js'));
 let templates = require('./src/util/templates.js');
 
 let app = express();
@@ -8,7 +11,13 @@ app.get('/', (req, res) => {
     res.send(templates.get('index')());
 });
 
-app.use('/dist/js/', express.static(path.join(__dirname, 'dist/js/')));
+if (!process.env.DEV) {
+    app.use('/dist/js/', express.static(path.join(__dirname, 'dist/js/')));
+} else {
+    app.use('/dist/js/', webpackDevMiddleware(webpackCompiler, {
+        publicPath: '',
+    }));
+}
 
 let port = process.env.PORT || 8080;
 
