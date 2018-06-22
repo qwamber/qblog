@@ -3,6 +3,7 @@ let { FieldError } = require('../util/errors.js');
 
 const MIN_NAME_LENGTH = 1;
 const MIN_USERNAME_LENGTH = 2;
+const USERNAME_REGEX = /^[a-z0-9_-]+$/i;
 const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;
 const MIN_PASSWORD_LENGTH = 1;
 
@@ -26,6 +27,14 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
         res.status(400).json(new FieldError(
             'username',
             `Your username must be at least ${MIN_USERNAME_LENGTH} ${MIN_USERNAME_LENGTH === 1 ? 'character' : 'characters'} long.`,
+        ));
+        return;
+    }
+
+    if (!USERNAME_REGEX.test(username)) {
+        res.status(400).json(new FieldError(
+            'username',
+            'Usernames can only contain letters, numbers, and underscores.',
         ));
         return;
     }
