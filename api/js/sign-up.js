@@ -3,7 +3,7 @@ let { FieldError } = require('../util/errors.js');
 
 const MIN_NAME_LENGTH = 1;
 const MIN_USERNAME_LENGTH = 2;
-const EMAIL_ADDRESS_REGEX = /.+@.+\..+/;
+const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;
 const MIN_PASSWORD_LENGTH = 1;
 
 module.exports.createUser = function apiCreateUserAccount(req, res) {
