@@ -1,3 +1,10 @@
+/**
+ * Handles an unexpected server error by writing it to the console and throwing
+ * a constant, less descriptive error message that can be used on the frontend.
+ *
+ * @param {Error} error The error.
+ * @throws {Error} The less descriptive error.
+ */
 module.exports.handleUnexpectedError = function handleUnexpectedPromiseError(
     error,
 ) {

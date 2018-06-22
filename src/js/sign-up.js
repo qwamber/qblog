@@ -6,6 +6,12 @@ let emailAddressInputError
     = document.getElementById('email-address-input-error');
 let passwordInputError = document.getElementById('password-input-error');
 
+/**
+ * Updates an error message HTML element with a new error. Does not clear
+ * the other elements, which must be done manually.
+ *
+ * @param {FieldError} fieldError The `FieldError` to use.
+ */
 let handleFieldError = function handleFieldErrorByUpdatingHTML(fieldError) {
     let errorToSet;
 
@@ -30,6 +36,12 @@ let handleFieldError = function handleFieldErrorByUpdatingHTML(fieldError) {
     errorToSet.innerHTML = fieldError.message;
 };
 
+/**
+ * Submits the current signup HTML inputs by making an API request. Updates
+ * error messages after submitting, if there is an error.
+ *
+ * TODO: Leave the signup page after a successful signup.
+ */
 window.onClickSubmitSignUp = function onClickSubmitSignUpFromInputs() {
     /*
         Reset errors so that a fixed error does not get "stuck" if it is

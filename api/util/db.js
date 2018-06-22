@@ -6,6 +6,13 @@ let { handleUnexpectedError } = require('./promises.js');
 
 let hasInitedDatabase = false;
 
+/**
+ * Initializes the Firebase database using credentials found in
+ * `api/config/firebase-admin-config.json` and
+ * `api/config/firebase-database-url.json`.
+ * .
+ * @return {boolean} Whether or not the initialization was successful.
+ */
 let initDatabase = function initDatabaseSession() {
     if (firebase.initializeApp({
         credential: firebase.credential.cert(firebaseConfig),
@@ -18,6 +25,15 @@ let initDatabase = function initDatabaseSession() {
     return false;
 };
 
+/**
+ * Possibly initializes the Firebase database using credentials found in
+ * `api/config/firebase-admin-config.json` and
+ * `api/config/firebase-database-url.json`, depending on whether or not it has
+ * already been initialized.
+ *
+ * @return {boolean} Whether or not the initialization was successful or it was
+ *                   already initialized.
+ */
 module.exports.maybeInitDatabase = function maybeInitDatabaseSession() {
     if (hasInitedDatabase) {
         return true;
@@ -26,6 +42,16 @@ module.exports.maybeInitDatabase = function maybeInitDatabaseSession() {
     return initDatabase();
 };
 
+/**
+ * Creates a user authentication account in Firebase Auth. Does not add
+ * information to the Realtime Database.
+ *
+ * @param {string} emailAddress The user's email address.
+ * @param {string} password The user's password.
+ * @return {Promise.<string>} A promise that resolves with the new user
+ *                            account's user ID, or rejects with a `FieldError`
+ *                            if there is one.
+ */
 module.exports.createAuthUser = function createAuthUserAccountInDatabase(
     emailAddress,
     password,
@@ -60,6 +86,17 @@ module.exports.createAuthUser = function createAuthUserAccountInDatabase(
     });
 };
 
+/**
+ * Checks if a value of a specified child key is taken in the Realtime Database
+ * (e.g. if a username is taken in a list of users).
+ *
+ * @param {string} location The location in the database to check within.
+ * @param {[type]} childKey The child key to check.
+ * @param {[type]} value The desired value.
+ * @return {Promise.<boolean>} A promise that resolves with whether or not the
+ *                             value is taken, or rejects with an `Error` if
+ *                             there is one.
+ */
 module.exports.checkChildTaken = function checkChildKeyValueTakenInDatabase(
     location,
     childKey,
@@ -74,6 +111,15 @@ module.exports.checkChildTaken = function checkChildKeyValueTakenInDatabase(
     }).catch(handleUnexpectedError);
 };
 
+/**
+ * Writes to a location in the Realtime Database.
+ *
+ * @param {string} location The location in the database to write at.
+ * @param {*} value The new value to use.
+ * @return {Promise.<string>} The key of the location written at (e.g.
+ *                            `username` in `users/example/username`), or an
+ *                            `Error` if there is one.
+ */
 module.exports.write = function writeValueAtLocationInDatabase(
     location,
     value,

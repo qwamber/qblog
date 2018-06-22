@@ -7,6 +7,17 @@ const USERNAME_REGEX = /^[a-z0-9_-]+$/i;
 const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;
 const MIN_PASSWORD_LENGTH = 1;
 
+/**
+ * Creates a user account by creating an authentication account and adding
+ * details to the database.
+ *
+ * @param {Object} req The Express.js request object.
+ * @param {string} req.body.name The user's desired name.
+ * @param {string} req.body.username The user's desired username.
+ * @param {string} req.body.emailAddress The user's desired email address.
+ * @param {string} req.body.password The user's desired password.
+ * @param {[type]} res The Express.js response object.
+ */
 module.exports.createUser = function apiCreateUserAccount(req, res) {
     let {
         name,
