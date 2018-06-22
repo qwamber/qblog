@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        index: './src/js/index.js',
+        'index': './src/js/index.js',
+        'sign-up': './src/js/sign-up.js',
     },
     output: {
         filename: '[name].bundle.js',
@@ -21,5 +22,10 @@ module.exports = {
                 ],
             },
         ],
+    },
+    node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
     },
 };

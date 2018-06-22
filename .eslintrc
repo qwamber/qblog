@@ -3,6 +3,23 @@
     "rules": {
         "indent": ["error", 4],
         "prefer-const": "off",
-        "max-len": ["error", { "code": 79 }]
+        "max-len": ["error", {
+            "code": 79,
+            "ignoreUrls": true,
+            "ignoreStrings": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreRegExpLiterals": true
+        }],
+        "semi": ["error", "always"],
+        "arrow-body-style": ["error", "always"],
+        "yoda": ["error", "never", {
+            "onlyEquality": true
+        }],
+        "function-paren-newline": "off",
+        "newline-per-chained-call": "off",
+    },
+    "env": {
+        "browser": true,
+        "node": true
     }
 }
