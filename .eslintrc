@@ -16,7 +16,7 @@
             "onlyEquality": true
         }],
         "function-paren-newline": "off",
-        "newline-per-chained-call": "off",
+        "newline-per-chained-call": "off"
     },
     "env": {
         "browser": true,
