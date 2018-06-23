@@ -5,6 +5,7 @@ module.exports = {
         'index': './src/js/index.js',
         'sign-up': './src/js/sign-up.js',
         'log-in': './src/js/log-in.js',
+        'new-blog': './src/js/new-blog.js',
     },
     output: {
         filename: '[name].bundle.js',

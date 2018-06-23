@@ -132,3 +132,27 @@ module.exports.write = function writeValueAtLocationInDatabase(
         return reference.key;
     }).catch(handleUnexpectedError);
 };
+
+/**
+ * Pushes to a parent location in the Realtime Database by using Firebase's
+ * unique key generation.
+ *
+ * @param {string} parentLocation The parent location in the database to
+ *                                push to.
+ * @param {*} value The new value to push.
+ * @return {Promise.<string>} A promise that resolves with the newly generated
+ *                            push key written at (e.g. `-example` in
+ *                            `blogs/-example`), or an `Error` if there is one.
+ */
+module.exports.push = function pushValueAtLocationInDatabase(
+    parentLocation,
+    value,
+) {
+    module.exports.maybeInitDatabase();
+
+    let reference = firebase.database().ref(parentLocation).push();
+
+    return reference.set(value).then(() => {
+        return reference.key;
+    }).catch(handleUnexpectedError);
+};

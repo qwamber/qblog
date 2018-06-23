@@ -27,8 +27,16 @@ app.get('/main', (req, res) => {
     res.send(templates.get('main')());
 });
 
+app.get('/new-blog', (req, res) => {
+    res.send(templates.get('new-blog')());
+});
+
 app.post('/api/sign-up', (req, res) => {
     api.signUp.createUser(req, res);
+});
+
+app.post('/api/new-blog', (req, res) => {
+    api.newBlog.createNewBlog(req, res);
 });
 
 if (!process.env.DEV) {
