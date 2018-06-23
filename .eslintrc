@@ -16,7 +16,10 @@
             "onlyEquality": true
         }],
         "function-paren-newline": "off",
-        "newline-per-chained-call": "off"
+        "newline-per-chained-call": "off",
+        "no-plusplus": ["error", {
+            "allowForLoopAfterthoughts": true
+        }]
     },
     "env": {
         "browser": true,

@@ -5,6 +5,9 @@ const MIN_NAME_LENGTH = 1;
 const MIN_SUBDOMAIN_LENGTH = 3;
 const SUBDOMAIN_REGEX = /^[a-z0-9_-]+$/i;
 
+// `www` will be the subdomain for the main website, so it cannot be allowed.
+let RESERVED_SUBDOMAINS = [/^www$/i];
+
 /**
  * Creates a new blog in the database.
  *
@@ -35,6 +38,15 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
             'Your blog\'s subdomain can only contain letters, numbers, underscores, and hyphens.',
         ));
         return;
+    }
+
+    for (let i = 0; i < RESERVED_SUBDOMAINS.length; i++) {
+        if (RESERVED_SUBDOMAINS[i].test(subdomain)) {
+            respondWithErrorJSON(res, new Error(
+                'That subdomain is not available.',
+            ));
+            return;
+        }
     }
 
     db.checkChildTaken('blogs/', 'subdomain', subdomain).then((isTaken) => {
