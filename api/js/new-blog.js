@@ -51,6 +51,7 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
     }
 
     let uid;
+    let blogKey;
 
     db.verifyIDToken(idToken).then((decodedUID) => {
         uid = decodedUID;
@@ -60,9 +61,17 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
             throw new Error('That subdomain is already taken.');
         }
     }).then(() => {
-        return db.push('blogs/', { name, subdomain, userUID: uid });
+        return db.push('blogs/', {
+            name,
+            subdomain,
+            userUID: uid,
+            blogCreated: Math.floor(Date.now() / 1000),
+        });
     }).then((key) => {
-        res.status(200).json({ key });
+        blogKey = key;
+        return db.write(`users/${uid}/blogs/${key}`, true);
+    }).then(() => {
+        res.status(200).json({ key: blogKey });
     }).catch((error) => {
         respondWithErrorJSON(res, error);
     });
