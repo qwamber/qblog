@@ -36,7 +36,7 @@ app.post('/api/sign-up', (req, res) => {
 });
 
 app.post('/api/new-blog', (req, res) => {
-    api.newBlog.createNewBlog(req, res);
+    api.blogs.createNewBlog(req, res);
 });
 
 if (!process.env.DEV) {
