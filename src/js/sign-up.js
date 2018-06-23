@@ -2,7 +2,6 @@ let requests = require('../util/requests');
 let db = require('../util/db.js');
 
 let nameInputError = document.getElementById('name-input-error');
-let usernameInputError = document.getElementById('username-input-error');
 let emailAddressInputError
     = document.getElementById('email-address-input-error');
 let passwordInputError = document.getElementById('password-input-error');
@@ -19,9 +18,6 @@ let handleFieldError = function handleFieldErrorByUpdatingHTML(fieldError) {
     switch (fieldError.field) {
     case 'name':
         errorToSet = nameInputError;
-        break;
-    case 'username':
-        errorToSet = usernameInputError;
         break;
     case 'emailAddress':
         errorToSet = emailAddressInputError;
@@ -47,18 +43,15 @@ window.onClickSubmitSignUp = function onClickSubmitSignUpFromInputs() {
         checked after another error.
      */
     nameInputError.innerHTML = '';
-    usernameInputError.innerHTML = '';
     emailAddressInputError.innerHTML = '';
     passwordInputError.innerHTML = '';
 
     let name = document.getElementById('name-input').value;
-    let username = document.getElementById('username-input').value;
     let emailAddress = document.getElementById('email-address-input').value;
     let password = document.getElementById('password-input').value;
 
     requests.makeAPIPostRequest('/api/sign-up', {
         name,
-        username,
         emailAddress,
         password,
     }).then(() => {

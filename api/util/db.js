@@ -65,7 +65,7 @@ module.exports.createAuthUser = function createAuthUserAccountInDatabase(
         return user.uid;
     }).catch((error) => {
         switch (error.code) {
-        case 'auth/email-already-in-use':
+        case 'auth/email-already-exists':
             throw new FieldError(
                 'emailAddress',
                 'That email address is already taken.',

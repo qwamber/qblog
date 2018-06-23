@@ -3,8 +3,6 @@ let { FieldError } = require('../util/errors.js');
 let { respondWithErrorJSON } = require('../util/responses.js');
 
 const MIN_NAME_LENGTH = 1;
-const MIN_USERNAME_LENGTH = 2;
-const USERNAME_REGEX = /^[a-z0-9_-]+$/i;
 const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;
 const MIN_PASSWORD_LENGTH = 6;
 
@@ -14,7 +12,6 @@ const MIN_PASSWORD_LENGTH = 6;
  *
  * @param {Object} req The Express.js request object.
  * @param {string} req.body.name The user's desired name.
- * @param {string} req.body.username The user's desired username.
  * @param {string} req.body.emailAddress The user's desired email address.
  * @param {string} req.body.password The user's desired password.
  * @param {Object} res The Express.js response object.
@@ -22,7 +19,6 @@ const MIN_PASSWORD_LENGTH = 6;
 module.exports.createUser = function apiCreateUserAccount(req, res) {
     let {
         name,
-        username,
         emailAddress,
         password,
     } = req.body;
@@ -31,22 +27,6 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
         respondWithErrorJSON(res, new FieldError(
             'name',
             `Your name must be at least ${MIN_NAME_LENGTH} ${MIN_NAME_LENGTH === 1 ? 'character' : 'characters'} long.`,
-        ));
-        return;
-    }
-
-    if (!username || username.length < MIN_USERNAME_LENGTH) {
-        respondWithErrorJSON(res, new FieldError(
-            'username',
-            `Your username must be at least ${MIN_USERNAME_LENGTH} ${MIN_USERNAME_LENGTH === 1 ? 'character' : 'characters'} long.`,
-        ));
-        return;
-    }
-
-    if (!USERNAME_REGEX.test(username)) {
-        respondWithErrorJSON(res, new FieldError(
-            'username',
-            'Usernames can only contain letters, numbers, and underscores.',
         ));
         return;
     }
@@ -67,16 +47,12 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
         return;
     }
 
-    Promise.all([
-        db.checkChildTaken('users/', 'username', username),
-        db.checkChildTaken('users/', 'emailAddress', emailAddress),
-    ]).then((takenValues) => {
-        if (takenValues[0]) {
-            throw new FieldError(
-                'username',
-                'That username is already taken.',
-            );
-        } else if (takenValues[1]) {
+    db.checkChildTaken(
+        'users/',
+        'emailAddress',
+        emailAddress,
+    ).then((isTaken) => {
+        if (isTaken) {
             throw new FieldError(
                 'emailAddress',
                 'That email address is already taken.',
@@ -87,7 +63,6 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }).then((uid) => {
         return db.write(`users/${uid}/`, {
             name,
-            username,
             emailAddress,
             accountCreated: Math.floor(Date.now() / 1000),
         });
