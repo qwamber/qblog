@@ -14,10 +14,11 @@ let RESERVED_SUBDOMAINS = [/^www$/i];
  * @param {Object} req The Express.js request object.
  * @param {string} req.body.name The desired name for the blog.
  * @param {string} req.body.subdomain The desired subdomain for the blog.
+ * @param {string} req.body.idToken The user's ID token.
  * @param {Object} res The Express.js response object.
  */
 module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
-    let { name, subdomain } = req.body;
+    let { name, subdomain, idToken } = req.body;
 
     if (!name || name.length < MIN_NAME_LENGTH) {
         respondWithErrorJSON(res, new Error(
@@ -49,12 +50,17 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
         }
     }
 
-    db.checkChildTaken('blogs/', 'subdomain', subdomain).then((isTaken) => {
+    let uid;
+
+    db.verifyIDToken(idToken).then((decodedUID) => {
+        uid = decodedUID;
+        return db.checkChildTaken('blogs/', 'subdomain', subdomain);
+    }).then((isTaken) => {
         if (isTaken) {
             throw new Error('That subdomain is already taken.');
         }
     }).then(() => {
-        return db.push('blogs/', { name, subdomain });
+        return db.push('blogs/', { name, subdomain, userUID: uid });
     }).then((key) => {
         res.status(200).json({ key });
     }).catch((error) => {

@@ -22,3 +22,13 @@ module.exports.FieldError = class AuthFieldError {
         this.date = new Date();
     }
 };
+
+/**
+ * Throws a generic error for when a user's ID token cannot be verified.
+ *
+ * @throws {Error} The ID token error.
+ */
+module.exports.throwIDTokenVerificationError
+    = function throwGenericIDTokenVerificationError() {
+        throw new Error('The current user could not be authenticated.');
+    };

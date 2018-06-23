@@ -22,6 +22,7 @@ window.onClickSubmitCreateNewBlog
         requests.makeAPIPostRequest(
             '/api/new-blog',
             { name, subdomain },
+            true,
         ).then(() => {
             // TODO: Go to the blog page.
         }).catch((error) => {

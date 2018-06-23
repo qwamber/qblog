@@ -3,6 +3,7 @@ let firebaseConfig = require('../config/firebase-admin-config.json');
 let firebaseDatabaseURL = require('../config/firebase-database-url.json');
 let { FieldError } = require('./errors.js');
 let { handleUnexpectedError } = require('./promises.js');
+let { throwIDTokenVerificationError } = require('../util/errors.js');
 
 let hasInitedDatabase = false;
 
@@ -109,6 +110,32 @@ module.exports.checkChildTaken = function checkChildKeyValueTakenInDatabase(
     ).once('value').then((snapshot) => {
         return snapshot.exists();
     }).catch(handleUnexpectedError);
+};
+
+/**
+ * Verifies a Firebase user ID token and decodes the user's UID.
+ *
+ * @param {string} idToken The user's auth ID token.
+ * @return {Promise.<string>} A promise that resolves with the user's UID, or
+ *                            rejects with an `Error` if there is one.
+ */
+module.exports.verifyIDToken = function verifyAuthIDTokenAnd(idToken) {
+    module.exports.maybeInitDatabase();
+
+    /*
+        An empty string is used as a default to prevent an error that occurs
+        when the type of `idToken` is `undefined`. This error is thrown instead
+        of being returned as a rejected `Promise`, making it easier to avoid
+        than to catch. See https://git.io/f4S3C for the `verifyIdToken` source
+        code demonstrating this behavior.
+     */
+    return firebase.auth().verifyIdToken(idToken || '').then((decodedToken) => {
+        if (!decodedToken.uid) {
+            throwIDTokenVerificationError();
+        }
+
+        return decodedToken.uid;
+    }).catch(throwIDTokenVerificationError);
 };
 
 /**

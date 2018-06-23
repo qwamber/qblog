@@ -1,4 +1,5 @@
 let rp = require('request-promise-native');
+let db = require('./db.js');
 
 // TODO: Change this once the service is published.
 const API_LOCATION = 'http://localhost:8080';
@@ -10,28 +11,40 @@ const API_LOCATION = 'http://localhost:8080';
  *                             begin with a `/`, e.g., `/api/sign-up`).
  * @param {Object} body The request body, which will be converted to a JSON
  *                      string.
+ * @param {boolean} needsIDToken Whether or not the current user's auth ID
+ *                               token should be added as the `idToken`
+ *                               property of the request body.
  * @return {Promise.<Object>} A promise that resolves with the response body,
  *                            or rejects with an `Error` if there is one.
  */
 module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
     apiEndpoint,
     body,
+    needsIDToken,
 ) {
-    return rp({
-        method: 'POST',
-        uri: API_LOCATION + apiEndpoint,
-        body,
-        json: true,
-        simple: false,
-        resolveWithFullResponse: true,
-    }).catch(() => {
-        /*
-            Throw a simple error if something goes wrong when making the
-            request itself.
-         */
-        throw new Error(
-            'An unexpected error occurred. Please try again later.',
-        );
+    let idTokenPromise = (
+        needsIDToken ? db.getIDToken() : Promise.resolve(null)
+    );
+
+    return idTokenPromise.then((idTokenOrNull) => {
+        return rp({
+            method: 'POST',
+            uri: API_LOCATION + apiEndpoint,
+            body: Object.assign({}, body, {
+                idToken: idTokenOrNull,
+            }),
+            json: true,
+            simple: false,
+            resolveWithFullResponse: true,
+        }).catch(() => {
+            /*
+                Throw a simple error if something goes wrong when making the
+                request itself.
+             */
+            throw new Error(
+                'An unexpected error occurred. Please try again later.',
+            );
+        });
     }).then((response) => {
         if (response.statusCode < 200 || 300 <= response.statusCode) {
             throw response.body;

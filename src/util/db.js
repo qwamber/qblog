@@ -1,5 +1,6 @@
 let firebase = require('firebase');
 let firebaseConfig = require('../config/firebase-config.json');
+let errors = require('./errors.js');
 
 let hasInitedDatabase = false;
 
@@ -70,5 +71,35 @@ module.exports.logIn = function locallyLogInToAuthSession(
                 'An unexpected error occurred. Please try again later.',
             );
         }
+    });
+};
+
+/**
+ * Gets the current user's Firebase Auth ID token.
+ *
+ * @return {Promise.<string>} A promise that resolves with the ID token, or
+ *                            rejects with an `Error` if there is one.
+ */
+module.exports.getIDToken = function getCurrentUserAuthIDToken() {
+    module.exports.maybeInitDatabase();
+
+    return new Promise((resolve) => {
+        firebase.auth().onAuthStateChanged((userOrNull) => {
+            resolve(userOrNull);
+        });
+    }).then((userOrNull) => {
+        if (!userOrNull) {
+            errors.throwNoAuthenticatedUserError();
+        }
+
+        return firebase.auth().currentUser.getIdToken(true).catch(() => {
+            errors.throwNoAuthenticatedUserError();
+        });
+    }).then((idTokenOrNull) => {
+        if (!idTokenOrNull) {
+            errors.throwNoAuthenticatedUserError();
+        }
+
+        return idTokenOrNull;
     });
 };
