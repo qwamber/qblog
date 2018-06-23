@@ -1,4 +1,5 @@
 let requests = require('../util/requests');
+let db = require('../util/db.js');
 
 let nameInputError = document.getElementById('name-input-error');
 let usernameInputError = document.getElementById('username-input-error');
@@ -39,8 +40,6 @@ let handleFieldError = function handleFieldErrorByUpdatingHTML(fieldError) {
 /**
  * Submits the current signup HTML inputs by making an API request. Updates
  * error messages after submitting, if there is an error.
- *
- * TODO: Leave the signup page after a successful signup.
  */
 window.onClickSubmitSignUp = function onClickSubmitSignUpFromInputs() {
     /*
@@ -63,7 +62,9 @@ window.onClickSubmitSignUp = function onClickSubmitSignUpFromInputs() {
         emailAddress,
         password,
     }).then(() => {
-        // TODO: Go to the main page.
+        return db.logIn(emailAddress, password);
+    }).then(() => {
+        window.location.replace('./main');
     }).catch((fieldError) => {
         handleFieldError(fieldError);
     });

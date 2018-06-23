@@ -23,6 +23,10 @@ app.get('/sign-up', (req, res) => {
     res.send(templates.get('sign-up')());
 });
 
+app.get('/main', (req, res) => {
+    res.send(templates.get('main')());
+});
+
 app.post('/api/sign-up', (req, res) => {
     api.signUp.createUser(req, res);
 });

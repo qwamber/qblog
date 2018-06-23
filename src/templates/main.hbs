@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Qblog</title>
+    </head>
+    <body>
+        <div>
+            <h1>Qblog</h1>
+        </div>
+        <div>
+            <p><a href="./new-blog">New</a></p>
+            <p>
+                <ul>
+                    {{#each blogs}}
+                    <li>
+                        <h3>
+                            <a href="./edit-blog?blog-key={{@key}}">
+                                {{name}}
+                            </a>
+                        </h3>
+                    </li>
+                    {{/each}}
+                </ul>
+            </p>
+        </div>
+    </body>
+</html>

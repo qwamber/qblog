@@ -5,8 +5,6 @@ let loginError = document.getElementById('login-error');
 /**
  * Submits the current login HTML inputs. Updates the error message after
  * submitting, if there is an error.
- *
- * TODO: Leave the login page after a successful login.
  */
 window.onClickSubmitLogIn = function onClickSubmitLogInFromInputs() {
     let emailAddress = document.getElementById('email-address-input').value;
@@ -19,7 +17,7 @@ window.onClickSubmitLogIn = function onClickSubmitLogInFromInputs() {
     loginError.innerHTML = '';
 
     db.logIn(emailAddress, password).then(() => {
-        // TODO: Go to the main page.
+        window.location.replace('./main');
     }).catch((error) => {
         loginError.innerHTML = error.message;
     });
