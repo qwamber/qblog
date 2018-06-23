@@ -17,7 +17,7 @@ const MIN_PASSWORD_LENGTH = 6;
  * @param {string} req.body.username The user's desired username.
  * @param {string} req.body.emailAddress The user's desired email address.
  * @param {string} req.body.password The user's desired password.
- * @param {[type]} res The Express.js response object.
+ * @param {Object} res The Express.js response object.
  */
 module.exports.createUser = function apiCreateUserAccount(req, res) {
     let {
