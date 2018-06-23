@@ -1,5 +1,6 @@
 let db = require('../util/db.js');
 let { FieldError } = require('../util/errors.js');
+let { respondWithErrorJSON } = require('../util/responses.js');
 
 const MIN_NAME_LENGTH = 1;
 const MIN_USERNAME_LENGTH = 2;
@@ -27,7 +28,7 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     } = req.body;
 
     if (!name || name.length < MIN_NAME_LENGTH) {
-        res.status(400).json(new FieldError(
+        respondWithErrorJSON(res, new FieldError(
             'name',
             `Your name must be at least ${MIN_NAME_LENGTH} ${MIN_NAME_LENGTH === 1 ? 'character' : 'characters'} long.`,
         ));
@@ -35,7 +36,7 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }
 
     if (!username || username.length < MIN_USERNAME_LENGTH) {
-        res.status(400).json(new FieldError(
+        respondWithErrorJSON(res, new FieldError(
             'username',
             `Your username must be at least ${MIN_USERNAME_LENGTH} ${MIN_USERNAME_LENGTH === 1 ? 'character' : 'characters'} long.`,
         ));
@@ -43,7 +44,7 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }
 
     if (!USERNAME_REGEX.test(username)) {
-        res.status(400).json(new FieldError(
+        respondWithErrorJSON(res, new FieldError(
             'username',
             'Usernames can only contain letters, numbers, and underscores.',
         ));
@@ -51,7 +52,7 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }
 
     if (!emailAddress || !EMAIL_ADDRESS_REGEX.test(emailAddress)) {
-        res.status(400).json(new FieldError(
+        respondWithErrorJSON(res, new FieldError(
             'emailAddress',
             'Your email address must be in the correct format.',
         ));
@@ -59,7 +60,7 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }
 
     if (!password || password.length < MIN_PASSWORD_LENGTH) {
-        res.status(400).json(new FieldError(
+        respondWithErrorJSON(res, new FieldError(
             'emailAddress',
             `Your password must be at least ${MIN_PASSWORD_LENGTH} characters long.`,
         ));
@@ -93,6 +94,6 @@ module.exports.createUser = function apiCreateUserAccount(req, res) {
     }).then((uid) => {
         res.status(200).json({ uid });
     }).catch((fieldError) => {
-        res.status(400).json(fieldError);
+        respondWithErrorJSON(res, fieldError);
     });
 };
