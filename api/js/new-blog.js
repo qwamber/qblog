@@ -5,6 +5,14 @@ const MIN_NAME_LENGTH = 1;
 const MIN_SUBDOMAIN_LENGTH = 3;
 const SUBDOMAIN_REGEX = /^[a-z0-9_-]+$/i;
 
+/**
+ * Creates a new blog in the database.
+ *
+ * @param {Object} req The Express.js request object.
+ * @param {string} req.body.name The desired name for the blog.
+ * @param {string} req.body.subdomain The desired subdomain for the blog.
+ * @param {Object} res The Express.js response object.
+ */
 module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
     let { name, subdomain } = req.body;
 
