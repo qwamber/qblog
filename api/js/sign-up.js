@@ -6,7 +6,7 @@ const MIN_NAME_LENGTH = 1;
 const MIN_USERNAME_LENGTH = 2;
 const USERNAME_REGEX = /^[a-z0-9_-]+$/i;
 const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;
-const MIN_PASSWORD_LENGTH = 1;
+const MIN_PASSWORD_LENGTH = 6;
 
 /**
  * Creates a user account by creating an authentication account and adding
