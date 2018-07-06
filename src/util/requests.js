@@ -30,9 +30,10 @@ module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
         return rp({
             method: 'POST',
             uri: API_LOCATION + apiEndpoint,
-            body: Object.assign({}, body, {
-                idToken: idTokenOrNull,
-            }),
+            body,
+            auth: {
+                bearer: idTokenOrNull,
+            },
             json: true,
             simple: false,
             resolveWithFullResponse: true,

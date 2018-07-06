@@ -1,4 +1,5 @@
 let db = require('../util/db.js');
+let tokens = require('../util/tokens.js');
 let { respondWithErrorJSON } = require('../util/responses.js');
 
 const MIN_NAME_LENGTH = 1;
@@ -14,11 +15,13 @@ let RESERVED_SUBDOMAINS = [/^www$/i];
  * @param {Object} req The Express.js request object.
  * @param {string} req.body.name The desired name for the blog.
  * @param {string} req.body.subdomain The desired subdomain for the blog.
- * @param {string} req.body.idToken The user's ID token.
+ * @param {string} req.headers.authorization The auth header, including the
+ *                                           user's ID token as a bearer token.
  * @param {Object} res The Express.js response object.
  */
 module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
-    let { name, subdomain, idToken } = req.body;
+    let { name, subdomain } = req.body;
+    let idToken = tokens.getBearerToken(req);
 
     if (!name || name.length < MIN_NAME_LENGTH) {
         respondWithErrorJSON(res, new Error(
