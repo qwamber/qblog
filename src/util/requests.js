@@ -14,8 +14,7 @@ const API_LOCATION = 'http://localhost:8080';
  * @param {Object} body The request body, which will be converted to a JSON
  *                      string.
  * @param {boolean} needsIDToken Whether or not the current user's auth ID
- *                               token should be added as the `idToken`
- *                               property of the request body.
+ *                               token should be added as a bearer token.
  * @return {Promise.<Object>} A promise that resolves with the response body,
  *                            or rejects with an `Error` if there is one.
  */
