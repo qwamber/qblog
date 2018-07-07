@@ -2,7 +2,7 @@ let firebase = require('firebase-admin');
 let firebaseConfig = require('../config/firebase-admin-config.json');
 let firebaseDatabaseURL = require('../config/firebase-database-url.json');
 let { FieldError } = require('./errors.js');
-let { handleUnexpectedError } = require('./promises.js');
+let { handleUnexpectedError } = require('./errors.js');
 let { throwIDTokenVerificationError } = require('../util/errors.js');
 
 let hasInitedDatabase = false;

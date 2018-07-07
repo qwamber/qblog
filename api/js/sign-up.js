@@ -1,6 +1,5 @@
 let db = require('../util/db.js');
-let { FieldError } = require('../util/errors.js');
-let { respondWithErrorJSON } = require('../util/responses.js');
+let { FieldError, respondWithErrorJSON } = require('../util/errors.js');
 
 const MIN_NAME_LENGTH = 1;
 const EMAIL_ADDRESS_REGEX = /^.+@.+\..+$/;

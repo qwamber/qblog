@@ -1,7 +1,7 @@
 let db = require('../util/db.js');
 let tokens = require('../util/tokens.js');
 let util = require('../util/util.js');
-let { respondWithErrorJSON } = require('../util/responses.js');
+let { respondWithErrorJSON } = require('../util/errors.js');
 
 const MIN_NAME_LENGTH = 1;
 const MIN_SUBDOMAIN_LENGTH = 3;
