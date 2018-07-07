@@ -12,23 +12,23 @@ let app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send(templates.get('index')());
+    res.send(templates.get('index'));
 });
 
 app.get('/log-in', (req, res) => {
-    res.send(templates.get('log-in')());
+    res.send(templates.get('log-in'));
 });
 
 app.get('/sign-up', (req, res) => {
-    res.send(templates.get('sign-up')());
+    res.send(templates.get('sign-up'));
 });
 
 app.get('/main', (req, res) => {
-    res.send(templates.get('main')());
+    res.send(templates.get('main'));
 });
 
 app.get('/new-blog', (req, res) => {
-    res.send(templates.get('new-blog')());
+    res.send(templates.get('new-blog'));
 });
 
 app.post('/api/sign-up', (req, res) => {
