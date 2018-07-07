@@ -183,3 +183,16 @@ module.exports.push = function pushValueAtLocationInDatabase(
         return reference.key;
     }).catch(handleUnexpectedError);
 };
+
+/**
+ * Reads at a location in the Realtime Database.
+ *
+ * @param {string} location The location in the database to read at.
+ * @return {Promise.<*>} A promise that resolves with the data that was read,
+ *                       or an `Error` if there is one.
+ */
+module.exports.read = function readValueAtLocationInDatabase(location) {
+    return firebase.database().ref(location).once('value').then((snapshot) => {
+        return snapshot.val();
+    }).catch(handleUnexpectedError);
+};

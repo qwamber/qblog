@@ -4,25 +4,33 @@
         <meta charset="utf-8">
         <title>Qblog</title>
     </head>
-    <body>
+    <body onload="onLoadInit();">
         <div>
             <h1>Qblog</h1>
         </div>
         <div>
             <p><a href="./new-blog">New</a></p>
             <p>
-                <ul>
-                    {{#each blogs}}
-                    <li>
-                        <h3>
-                            <a href="./edit-blog?blog-key={{@key}}">
-                                {{name}}
-                            </a>
-                        </h3>
-                    </li>
-                    {{/each}}
+                <ul id="blog-list">
                 </ul>
             </p>
         </div>
+
+        <script
+            type="text/x-handlebars-template"
+            id="blog-list-items-template"
+        >
+            {{#each blogs}}
+            <li>
+                <h3>
+                    <a href="./edit-blog/{{@key}}">
+                        {{name}}
+                    </a>
+                </h3>
+            </li>
+            {{/each}}
+        </script>
+
+        <script src="./dist/js/main.bundle.js" charset="utf-8"></script>
     </body>
 </html>

@@ -1,5 +1,6 @@
 let db = require('../util/db.js');
 let tokens = require('../util/tokens.js');
+let util = require('../util/util.js');
 let { respondWithErrorJSON } = require('../util/responses.js');
 
 const MIN_NAME_LENGTH = 1;
@@ -75,6 +76,39 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
         return db.write(`users/${uid}/blogs/${key}`, true);
     }).then(() => {
         res.status(200).json({ key: blogKey });
+    }).catch((error) => {
+        respondWithErrorJSON(res, error);
+    });
+};
+
+/**
+ * Gets the current user's blog objects.
+ *
+ * @param {Object} req The Express.js request object.
+ * @param {string} req.headers.authorization The auth header, including the
+ *                                           user's ID token as a bearer token.
+ * @param {Object} res The Express.js response object.
+ */
+module.exports.getBlogs = function apiGetBlogObjects(req, res) {
+    let idToken = tokens.getBearerToken(req);
+
+    let truthyUserBlogKeys;
+
+    db.verifyIDToken(idToken).then((uid) => {
+        return db.read(`users/${uid}/blogs/`);
+    }).then((userBlogKeys) => {
+        truthyUserBlogKeys = util.getTruthyKeys(userBlogKeys);
+
+        return Promise.all(truthyUserBlogKeys.map((blogKey) => {
+            return db.read(`blogs/${blogKey}`);
+        }));
+    }).then((blogObjectsArray) => {
+        return util.makeKeysAndValues(
+            truthyUserBlogKeys,
+            blogObjectsArray,
+        );
+    }).then((blogObjects) => {
+        res.status(200).json(blogObjects);
     }).catch((error) => {
         respondWithErrorJSON(res, error);
     });

@@ -5,10 +5,12 @@ let db = require('./db.js');
 const API_LOCATION = 'http://localhost:8080';
 
 /**
- * Makes a POST request to the API at a specified endpoint.
+ * Makes a request to the API at a specified endpoint.
  *
  * @param {string} apiEndpoint The endpoint to make a request to (which should
  *                             begin with a `/`, e.g., `/api/sign-up`).
+ * @param {string} method The request method, which will usually be either
+ *                        `'GET'` or `'POST'`.
  * @param {Object} body The request body, which will be converted to a JSON
  *                      string.
  * @param {boolean} needsIDToken Whether or not the current user's auth ID
@@ -17,8 +19,9 @@ const API_LOCATION = 'http://localhost:8080';
  * @return {Promise.<Object>} A promise that resolves with the response body,
  *                            or rejects with an `Error` if there is one.
  */
-module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
+let makeAPIRequest = function makeAPIRequestWithJSON(
     apiEndpoint,
+    method,
     body,
     needsIDToken,
 ) {
@@ -28,7 +31,7 @@ module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
 
     return idTokenPromise.then((idTokenOrNull) => {
         return rp({
-            method: 'POST',
+            method,
             uri: API_LOCATION + apiEndpoint,
             body,
             auth: {
@@ -53,4 +56,44 @@ module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
 
         return response.body;
     });
+};
+
+/**
+ * Makes a POST request to the API at a specified endpoint.
+ *
+ * @param {string} apiEndpoint The endpoint to make a request to (which should
+ *                             begin with a `/`, e.g., `/api/sign-up`).
+ * @param {Object} body The request body, which will be converted to a JSON
+ *                      string.
+ * @param {boolean} needsIDToken Whether or not the current user's auth ID
+ *                               token should be added as a bearer token.
+ * @return {Promise.<Object>} A promise that resolves with the response body,
+ *                            or rejects with an `Error` if there is one.
+ */
+module.exports.makeAPIPostRequest = function makeAPIPostRequestWithJSON(
+    apiEndpoint,
+    body,
+    needsIDToken,
+) {
+    return makeAPIRequest(apiEndpoint, 'POST', body, needsIDToken);
+};
+
+/**
+ * Makes a GET request to the API at a specified endpoint.
+ *
+ * @param {string} apiEndpoint The endpoint to make a request to (which should
+ *                             begin with a `/`, e.g., `/api/sign-up`).
+ * @param {Object} body The request body, which will be converted to a JSON
+ *                      string.
+ * @param {boolean} needsIDToken Whether or not the current user's auth ID
+ *                               token should be added as a bearer token.
+ * @return {Promise.<Object>} A promise that resolves with the response body,
+ *                            or rejects with an `Error` if there is one.
+ */
+module.exports.makeAPIGetRequest = function makeAPIPostRequestWithJSON(
+    apiEndpoint,
+    body,
+    needsIDToken,
+) {
+    return makeAPIRequest(apiEndpoint, 'GET', body, needsIDToken);
 };

@@ -39,6 +39,10 @@ app.post('/api/new-blog', (req, res) => {
     api.blogs.createNewBlog(req, res);
 });
 
+app.get('/api/get-blogs', (req, res) => {
+    api.blogs.getBlogs(req, res);
+});
+
 if (!process.env.DEV) {
     app.use('/dist/js/', express.static(path.join(__dirname, 'dist/js/')));
 } else {
