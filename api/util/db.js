@@ -192,6 +192,8 @@ module.exports.push = function pushValueAtLocationInDatabase(
  *                       or an `Error` if there is one.
  */
 module.exports.read = function readValueAtLocationInDatabase(location) {
+    module.exports.maybeInitDatabase();
+
     return firebase.database().ref(location).once('value').then((snapshot) => {
         return snapshot.val();
     }).catch(handleUnexpectedError);

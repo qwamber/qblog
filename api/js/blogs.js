@@ -113,3 +113,29 @@ module.exports.getBlogs = function apiGetBlogObjects(req, res) {
         respondWithErrorJSON(res, error);
     });
 };
+
+/**
+ * Gets a blog object.
+ *
+ * @param {Object} req The Express.js request object.
+ * @param {string} req.query.key The blog key.
+ * @param {Object} res The Express.js response object.
+ */
+module.exports.getBlog = function apiGetBlogObjects(req, res) {
+    let { key } = req.query;
+
+    if (!key) {
+        respondWithErrorJSON(res, new Error('A blog key is required.'));
+        return;
+    }
+
+    db.read(`blogs/${key}`).then((blog) => {
+        if (!blog) {
+            throw new Error('That blog could not be found.');
+        }
+
+        res.status(200).json(blog);
+    }).catch((error) => {
+        respondWithErrorJSON(res, error);
+    });
+};
