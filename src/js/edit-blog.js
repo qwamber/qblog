@@ -2,6 +2,10 @@ let handlebars = require('handlebars');
 let queryString = require('query-string');
 let requests = require('../util/requests');
 
+/**
+ * Initializes the page by making an API request and compiling and rendering
+ * the Handlebars template.
+ */
 window.onLoadInit = function onLoadBodyInit() {
     let bodyInnerTemplate = handlebars.compile(
         document.getElementById('body-inner-template').innerHTML,
