@@ -68,7 +68,7 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
         return db.push('blogs/', {
             name,
             subdomain,
-            userUID: uid,
+            owner: uid,
             blogCreated: Math.floor(Date.now() / 1000),
         });
     }).then((key) => {

@@ -36,7 +36,7 @@ module.exports.newPost = function apiCreateNewBlogPost(req, res) {
             throw new Error('That blog could not be found.');
         }
 
-        if (blog.userUID !== uid) {
+        if (blog.owner !== uid) {
             throw new Error('You do not have permission to create a post on this blog.');
         }
     }).then(() => {
