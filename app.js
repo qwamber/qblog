@@ -35,6 +35,10 @@ app.get('/edit-blog', (req, res) => {
     res.send(templates.get('edit-blog'));
 });
 
+app.get('/new-post', (req, res) => {
+    res.send(templates.get('new-post'));
+});
+
 app.post('/api/sign-up', (req, res) => {
     api.signUp.createUser(req, res);
 });
@@ -49,6 +53,10 @@ app.get('/api/get-blogs', (req, res) => {
 
 app.get('/api/get-blog', (req, res) => {
     api.blogs.getBlog(req, res);
+});
+
+app.post('/api/new-post', (req, res) => {
+    api.posts.newPost(req, res);
 });
 
 if (!process.env.DEV) {

@@ -8,6 +8,7 @@ module.exports = {
         'main': './src/js/main.js',
         'new-blog': './src/js/new-blog.js',
         'edit-blog': './src/js/edit-blog.js',
+        'new-post': './src/js/new-post.js',
     },
     output: {
         filename: '[name].bundle.js',
