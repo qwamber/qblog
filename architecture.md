@@ -7,7 +7,7 @@ The database structure is as follows:
       - `name (string)` (the blog's name)
       - `subdomain (string)` (the subdomain that will be used for the blog)
       - `owner (string)` (the UID of the user that created the blog)
-      - `blogCreated (number)` (the Unix time when the blog was created)
+      - `created (number)` (the Unix time when the blog was created)
       - `posts`
          - *post key*
             - `title (string)` (the post title)

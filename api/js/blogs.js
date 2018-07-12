@@ -69,7 +69,7 @@ module.exports.createNewBlog = function apiCreateNewBlogPage(req, res) {
             name,
             subdomain,
             owner: uid,
-            blogCreated: Math.floor(Date.now() / 1000),
+            created: Math.floor(Date.now() / 1000),
         });
     }).then((key) => {
         blogKey = key;
