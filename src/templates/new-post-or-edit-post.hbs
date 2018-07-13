@@ -5,17 +5,20 @@
     </head>
     <body onload="onLoadInit();">
         <div>
-            <h1 id="new-post-heading"></h1>
+            <h1 id="post-heading"></h1>
         </div>
         <div>
             <div>
                 <label for="title-input">Post Title</label>
                 <input id="title-input" type="text" />
-                <button onclick="onClickSubmitNewPost();">Publish</button>
+                <button
+                    id="submit-button"
+                    onclick="onClickSubmitPost();"
+                ></button>
             </div>
             <div>
                 <label for="body-input">Post Body</label>
-                <span id="new-post-error"></span>
+                <span id="post-error"></span>
                 <textarea id="body-input"></textarea>
             </div>
         </div>
@@ -24,16 +27,27 @@
             type="text/x-handlebars-template"
             id="title-inner-template"
         >
-            New Post for {{name}}
+            Post for {{name}}
         </script>
 
         <script
             type="text/x-handlebars-template"
-            id="new-post-heading-inner-template"
+            id="post-heading-inner-template"
         >
-            New Post for {{name}}
+            Post for {{name}}
         </script>
 
-        <script src="./dist/js/new-post.bundle.js" charset="utf-8"></script>
+        <script
+            type="text/x-handlebars-template"
+            id="submit-button-inner-template"
+        >
+            {{#if isEditing}}
+            Update
+            {{else}}
+            Publish
+            {{/if}}
+        </script>
+
+        <script src="./dist/js/new-post-or-edit-post.bundle.js" charset="utf-8"></script>
     </body>
 </html>
