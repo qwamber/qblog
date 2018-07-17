@@ -119,17 +119,30 @@ module.exports.getBlogs = function apiGetBlogObjects(req, res) {
  *
  * @param {Object} req The Express.js request object.
  * @param {string} req.query.key The blog key.
+ * @param {string} req.query.subdomain The blog subdomain (only if `key` is not
+ *                                     specified).
  * @param {Object} res The Express.js response object.
  */
 module.exports.getBlog = function apiGetBlogObjects(req, res) {
-    let { key } = req.query;
+    let { key, subdomain } = req.query;
 
-    if (!key) {
-        respondWithErrorJSON(res, new Error('A blog key is required.'));
+    if (!key && !subdomain) {
+        respondWithErrorJSON(
+            res,
+            new Error('A blog key or subdomain is required.'),
+        );
         return;
     }
 
-    db.read(`blogs/${key}`).then((blog) => {
+    new Promise((resolve) => {
+        if (!key && subdomain) {
+            resolve(db.read(`blogSubdomains/${subdomain}`));
+        } else {
+            resolve(key);
+        }
+    }).then((keyOrReadKey) => {
+        return db.read(`blogs/${keyOrReadKey}`);
+    }).then((blog) => {
         if (!blog) {
             throw new Error('That blog could not be found.');
         }

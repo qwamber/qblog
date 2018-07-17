@@ -9,6 +9,7 @@ module.exports = {
         'new-blog': './src/js/new-blog.js',
         'edit-blog': './src/js/edit-blog.js',
         'new-post-or-edit-post': './src/js/new-post-or-edit-post.js',
+        'view-blog': './src/js/view-blog.js',
     },
     output: {
         filename: '[name].bundle.js',
