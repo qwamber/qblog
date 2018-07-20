@@ -8,7 +8,7 @@
             rel="stylesheet"
         >
     </head>
-    <body>
+    <body onload="onLoadInit();">
         <div class="hero">
             <div class="header">
                 <h1>Qblog</h1>
@@ -27,6 +27,45 @@
                 <a class="hero-button" href="./sign-up">
                     <h3>Get Started</h3>
                 </a>
+            </div>
+        </div>
+        <div id="no-restrictions-feature" class="feature feature-text-right">
+            <img id="no-restrictions-icon" alt="Qblog has No Restrictions.">
+            <div class="text-container">
+                <h4>No Restrictions</h4>
+                <p>
+                    We don't limit what you can do on our platform. That means
+                    we don't force you to say “Made with Qblog” or make you pay
+                    more to have certain features. It's all free, with no ads,
+                    forever.
+                </p>
+            </div>
+        </div>
+        <div id="beautiful-feature" class="feature feature-text-left">
+            <div class="text-container">
+                <h4>Beautiful</h4>
+                <p>
+                    Qblog featues multiple gorgeous themes to make your blog
+                    look stunning. And if you’re imagining something specific,
+                    you can make your own!
+                </p>
+            </div>
+            <img id="beautiful-icon" alt="Qblog is Beautiful.">
+        </div>
+        <div id="open-source-feature" class="feature feature-text-right">
+            <img id="open-source-icon" alt="Qblog is Open Source.">
+            <div class="text-container">
+                <h4>Open Source</h4>
+                <p>
+                    Qblog is completely
+                    <a
+                        href="https://github.com/qwamber/qblog"
+                        target="_blank"
+                    >open-source</a>. That means you anyone can look at the
+                    Qblog code, so you know there’s nothing fishy going on. And
+                    anyone can contribute, too, so if there’s something you
+                    want to change, you can do it.
+                </p>
             </div>
         </div>
         <script src="./dist/js/index.bundle.js" charset="utf-8"></script>

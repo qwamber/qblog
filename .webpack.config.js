@@ -27,6 +27,12 @@ module.exports = {
                     { loader: 'less-loader' }
                 ],
             },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader',
+                ],
+            },
         ],
     },
     node: {
