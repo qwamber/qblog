@@ -1,3 +1,4 @@
+require('../style/master.less');
 require('../style/index.less');
 let noRestrictionsIconSource = require('../res/index/no-restrictions-icon.png');
 let beautifulIconSource = require('../res/index/beautiful-icon.png');

@@ -1,56 +1,3 @@
-@primary-text-color: #333333;
-
-.type() {
-    font-family: 'Noticia Text', sans-serif;
-    color: @primary-text-color;
-}
-
-body {
-    .type();
-    margin: 0px;
-
-    a {
-        color: @primary-text-color;
-        text-decoration: underline;
-    }
-}
-
-.header {
-    padding: 24px 0px;
-    height: 42px;
-
-    h1 {
-        font-weight: bold;
-        font-size: 32px;
-        margin: 0px;
-        display: inline;
-        float: left;
-        vertical-align: middle;
-        line-height: 42px;
-    }
-
-    ul {
-        list-style-type: none;
-        display: inline;
-        margin: 0px;
-        float: right;
-        vertical-align: middle;
-        line-height: 42px;
-
-        li {
-            font-weight: normal;
-            font-size: 20px;
-            display: inline;
-
-            margin-right: 40px;
-        }
-
-        li:last-of-type {
-            margin-right: 0px;
-        }
-    }
-}
-
 .hero {
     background-image: linear-gradient(0deg, #EAE1C7 0%, #EDEBE6 100%);
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.50);
@@ -58,6 +5,10 @@ body {
     z-index: 3;
     min-height: 879px;
     padding: 0px 32px;
+
+    .header {
+        padding: 24px 0px;
+    }
 
     h2 {
         font-weight: normal;
@@ -76,35 +27,6 @@ body {
 
     .hero-button-container {
         padding-bottom: 128px;
-    }
-}
-
-.hero-button-container {
-    text-align: center;
-    margin: 72px 0px 0px;
-
-    .hero-button {
-        background-image: linear-gradient(0deg, #E3C15E 6%, #FFF0C1 100%);
-        box-shadow: 0 3px 6px 0 #AE8F35;
-        border-radius: 97px;
-        padding: 28px 88px 32px;
-        margin: 0px auto;
-        display: inline-block;
-        text-decoration: none;
-
-        h3 {
-            font-size: 32px;
-            margin: 0px;
-        }
-    }
-
-    .hero-button:hover {
-        background-image: linear-gradient(0deg, #BB9C41 6%, #EEDDA5 100%);
-    }
-
-    .hero-button:active {
-        box-shadow: 0 3px 6px 0 #AE8F35 inset;
-        background-image: linear-gradient(0deg, #EEDDA5 6%, #BB9C41 100%);
     }
 }
 

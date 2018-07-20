@@ -5,10 +5,14 @@
         <title>Qblog</title>
     </head>
     <body>
-        <div>
-            <h1>Qblog: Sign Up</h1>
+        <div class="header">
+            <h1>Qblog</h1>
+            <ul>
+                <li><a href="./log-in">Log In</a></li>
+                <li><a href="./sign-up">Sign Up</a></li>
+            </ul>
         </div>
-        <div>
+        <div class="form">
             <p>
                 <label for="name-input">Your Name</label>
                 <input id="name-input" type="text" />
@@ -24,9 +28,11 @@
                 <input id="password-input" type="password" />
                 <span id="password-input-error"></span>
             </p>
-            <p>
-                <button onclick="onClickSubmitSignUp();">Sign Up</button>
-            </p>
+            <div class="hero-button-container">
+                <button class="hero-button" onclick="onClickSubmitSignUp();">
+                    <h3>Sign Up</h3>
+                </button>
+            </div>
         </div>
         <script src="./dist/js/sign-up.bundle.js" charset="utf-8"></script>
     </body>

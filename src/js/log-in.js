@@ -1,3 +1,5 @@
+require('../style/master.less');
+require('../style/log-in-or-sign-up.less');
 let db = require('../util/db.js');
 
 let loginError = document.getElementById('login-error');
