@@ -3,32 +3,55 @@
     <head>
         <meta charset="utf-8">
         <title>Qblog</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Noticia+Text:400,700"
+            rel="stylesheet"
+        >
     </head>
     <body onload="onLoadInit();">
-        <div>
+        <div class="header">
             <h1>Qblog</h1>
         </div>
-        <div>
-            <p><a href="./new-blog">New</a></p>
-            <p>
-                <ul id="blog-list">
-                </ul>
-            </p>
+        <div class="form">
+            <div>
+                <h2>
+                    Choose a Blog
+                </h2>
+                <div class="normal-button-container">
+                    <a class="normal-button" href="./new-blog">
+                        <h4>New</h4>
+                    </a>
+                </div>
+            </div>
+            <div id="blog-list">
+            </div>
         </div>
-
         <script
             type="text/x-handlebars-template"
             id="blog-list-items-template"
         >
-            {{#each blogs}}
-            <li>
-                <h3>
-                    <a href="./edit-blog?key={{@key}}">
-                        {{name}}
-                    </a>
-                </h3>
-            </li>
-            {{/each}}
+            <ul>
+                {{#each evenBlogs}}
+                <li>
+                    <h3>
+                        <a href="./edit-blog?key={{@key}}">
+                            {{name}}
+                        </a>
+                    </h3>
+                </li>
+                {{/each}}
+            </ul>
+            <ul>
+                {{#each oddBlogs}}
+                <li>
+                    <h3>
+                        <a href="./edit-blog?key={{@key}}">
+                            {{name}}
+                        </a>
+                    </h3>
+                </li>
+                {{/each}}
+            </ul>
         </script>
 
         <script src="./dist/js/main.bundle.js" charset="utf-8"></script>
