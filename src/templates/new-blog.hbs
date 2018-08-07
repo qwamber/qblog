@@ -3,26 +3,38 @@
     <head>
         <meta charset="utf-8">
         <title>Qblog</title>
+        <link
+            href="https://fonts.googleapis.com/css?family=Noticia+Text:400,700"
+            rel="stylesheet"
+        >
     </head>
     <body>
         <div>
-            <h1>Qblog: New Blog</h1>
-        </div>
-        <div>
-            <p>
-                <label for="name-input">Blog Name</label>
-                <input id="name-input" type="text" />
-            </p>
-            <p>
-                <label for="subdomain-input">Blog Subdomain</label>
-                <input id="subdomain-input" type="text" />
-                <span id="new-blog-error"></span>
-            </p>
-            <p>
-                <button onclick="onClickSubmitCreateNewBlog();">
-                    Create New Blog
-                </button>
-            </p>
+            <div class="header">
+                <h1>Qblog</h1>
+            </div>
+            <div class="form">
+                <h2>
+                    New Blog
+                </h2>
+                <p>
+                    <label for="name-input">Blog Name</label>
+                    <input id="name-input" type="text" />
+                </p>
+                <p>
+                    <label for="subdomain-input">Blog Subdomain</label>
+                    <input id="subdomain-input" type="text" />
+                    <span id="new-blog-error"></span>
+                </p>
+                <div class="large-button-container">
+                    <button
+                        class="large-button"
+                        onclick="onclick=onClickSubmitCreateNewBlog();"
+                    >
+                        <h3>Create New Blog</h3>
+                    </button>
+                </div>
+            </div>
         </div>
         <script src="./dist/js/new-blog.bundle.js" charset="utf-8"></script>
     </body>

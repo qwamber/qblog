@@ -1,3 +1,5 @@
+require('../style/master.less');
+require('../style/new-blog.less');
 let requests = require('../util/requests');
 
 let newBlogError = document.getElementById('new-blog-error');

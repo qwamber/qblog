@@ -141,6 +141,47 @@ body {
     }
 }
 
+.large-button-container {
+    text-align: center;
+    margin: 36px 0px 0px;
+
+    .large-button {
+        background-image: linear-gradient(0deg, #E3C15E 6%, #FFF0C1 100%);
+        box-shadow: 0 3px 6px 0 #AE8F35;
+        border-radius: 32px;
+        box-sizing: border-box;
+        height: 64px;
+        width: 198px;
+        margin: 0px auto;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+
+        h3 {
+            font-size: 16px;
+            margin: 0px;
+            font-weight: bold;
+        }
+    }
+
+    .large-button:hover {
+        background-image: linear-gradient(0deg, #BB9C41 6%, #EEDDA5 100%);
+    }
+
+    .large-button:active {
+        box-shadow: 0 3px 6px 0 #AE8F35 inset;
+        background-image: linear-gradient(0deg, #EEDDA5 6%, #BB9C41 100%);
+    }
+
+    a.large-button {
+        padding: 12px 0px 0px;
+    }
+
+    button.large-button {
+        padding: 0px;
+    }
+}
+
 .form {
     margin: 48px auto 0px;
     width: 512px;
@@ -153,14 +194,15 @@ body {
     h2 {
         font-size: 30px;
         margin-top: 0px;
-        margin-bottom: 16px;
+        margin-bottom: 32px;
+        font-weight: bold;
     }
 
     p {
         margin: 0px 0px 40px;
 
         label {
-            font-size: 26px;
+            font-size: 20px;
             margin-bottom: 8px;
         }
 

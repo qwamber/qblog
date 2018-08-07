@@ -12,7 +12,7 @@ let wwwRouter = express.Router();
 let blogRouter = express.Router();
 let anyRouter = express.Router();
 
-wwwRouter.use(bodyParser.json());
+anyRouter.use(bodyParser.json());
 
 wwwRouter.get('/', (req, res) => {
     res.send(templates.get('index'));
