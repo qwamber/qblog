@@ -1,5 +1,5 @@
 require('../style/master.less');
-require('../style/main.less');
+require('../style/main-or-edit-blog.less');
 let handlebars = require('handlebars');
 let requests = require('../util/requests');
 

@@ -4,6 +4,9 @@
         <meta charset="utf-8">
     </head>
     <body id="body" onload="onLoadInit();">
+        <div class="header">
+            <h1>Qblog</h1>
+        </div>
         <script
             type="text/x-handlebars-template"
             id="title-inner-template"
@@ -15,27 +18,44 @@
             type="text/x-handlebars-template"
             id="body-inner-template"
         >
-            <div>
-                <h1>Edit {{name}}</h1>
-            </div>
-            <div>
+            <div class="form">
                 <h2>
-                    Posts
-                    <a href="./new-post-or-edit-post?blogKey={{key}}">New</a>
+                    Edit {{name}}
                 </h2>
-                <ul id="post-list">
-                    {{#each posts}}
-                    <li>
-                        <h3>
-                            <a
-                                href="./new-post-or-edit-post?blogKey={{../key}}&postKey={{@key}}"
-                            >
-                                {{title}}
-                            </a>
-                        </h3>
-                    </li>
-                    {{/each}}
-                </ul>
+                <div>
+                    <h3>
+                        Posts
+                    </h3>
+                    <div class="normal-button-container">
+                        <a
+                            class="normal-button"
+                            href="././new-post-or-edit-post?blogKey={{key}}"
+                        >
+                            <h4>New</h4>
+                        </a>
+                    </div>
+                </div>
+                <div id="post-list">
+                    <ul>
+                        {{#each posts}}
+                        <li>
+                            <h4>
+                                <a
+                                    href="./new-post-or-edit-post?blogKey={{../key}}&postKey={{@key}}"
+                                >
+                                    {{title}}
+                                </a>
+                            </h4>
+                        </li>
+                        {{else}}
+                        <li>
+                            <h4>
+                                You don't have any posts yet!
+                            </h4>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
             </div>
         </script>
 

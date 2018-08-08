@@ -1,3 +1,5 @@
+require('../style/master.less');
+require('../style/main-or-edit-blog.less');
 let handlebars = require('handlebars');
 let queryString = require('query-string');
 let requests = require('../util/requests');
