@@ -55,8 +55,6 @@ window.onLoadInit = function onLoadBodyInit() {
             isEditing: postKeyIfEditing,
         });
 
-        console.log(postIfEditing);
-
         if (postIfEditing) {
             document.getElementById('title-input').value = postIfEditing.title;
             document.getElementById('body-input').value = postIfEditing.body;
