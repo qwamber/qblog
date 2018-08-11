@@ -1,3 +1,5 @@
+require('../style/master.less');
+require('../style/new-post-or-edit-post.less');
 let handlebars = require('handlebars');
 let queryString = require('query-string');
 let requests = require('../util/requests');
@@ -46,7 +48,7 @@ window.onLoadInit = function onLoadBodyInit() {
         let blogWithKey = Object.assign({}, blog, { key: blogKey });
 
         document.getElementById(
-            'post-heading-inner-template',
+            'post-heading',
         ).innerHTML = newPostHeadingInnerTemplate(blogWithKey);
         document.title = titleInnerTemplate(blogWithKey);
         document.getElementById(

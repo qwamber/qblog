@@ -1,0 +1,31 @@
+body {
+    /*
+        This is the same background color as `.form`, in order to remove the
+        shadowed look.
+     */
+    background-color: #F2EFE4;
+}
+
+.header {
+    position:relative;
+    z-index: 1;
+}
+
+.form {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    padding: 128px calc(50% - 256px);
+    border-radius: 0px;
+    box-shadow: none;
+
+    h2 {
+        margin-right: 16px;
+    }
+
+    h2, .normal-button-container {
+        display: inline-block;
+        vertical-align: top;
+    }
+}

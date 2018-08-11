@@ -4,22 +4,30 @@
         <meta charset="utf-8">
     </head>
     <body onload="onLoadInit();">
-        <div>
-            <h1 id="post-heading"></h1>
+        <div class="header header-with-background">
+            <h1>Qblog</h1>
         </div>
         <div>
-            <div>
-                <label for="title-input">Post Title</label>
-                <input id="title-input" type="text" />
-                <button
-                    id="submit-button"
-                    onclick="onClickSubmitPost();"
-                ></button>
-            </div>
-            <div>
-                <label for="body-input">Post Body</label>
-                <span id="post-error" class="error-message"></span>
-                <textarea id="body-input"></textarea>
+            <div class="form">
+                <div>
+                    <h2 id="post-heading"></h1>
+                    <div class="normal-button-container">
+                        <button
+                            class="normal-button"
+                            id="submit-button"
+                            onclick="onClickSubmitPost();"
+                        ></button>
+                    </div>
+                </div>
+                <p>
+                    <label for="title-input">Post Title</label>
+                    <input id="title-input" type="text" />
+                    <span id="post-error" class="error-message"></span>
+                </p>
+                <p>
+                    <label for="body-input">Post Body</label>
+                    <textarea id="body-input"></textarea>
+                </p>
             </div>
         </div>
 
