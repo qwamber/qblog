@@ -12,7 +12,8 @@ const UNTITLED_POST_TITLE = 'Untitled Post';
  * @param {string} req.body.postKeyIfEditing The post key to edit, if this
  *                                           should be an edit.
  * @param {string} req.body.title The title to be used for the new post.
- * @param {string} req.body.body The post body to be used for the new post.
+ * @param {string} req.body.bodyDelta The post body delta to be used for the
+ *                                    new post.
  * @param {string} req.headers.authorization The auth header, including the
  *                                           user's ID token as a bearer token.
  * @param {Object} res The Express.js response object.
@@ -25,7 +26,7 @@ module.exports.newPostOrEditPost = function apiCreateNewBlogPostOrEditBlogPost(
         blogKey,
         postKeyIfEditing,
         title,
-        body,
+        bodyDelta,
     } = req.body;
 
     let idToken = tokens.getBearerToken(req);
@@ -53,7 +54,7 @@ module.exports.newPostOrEditPost = function apiCreateNewBlogPostOrEditBlogPost(
     }).then(() => {
         let newPostObject = {
             title: finalTitle,
-            body,
+            bodyDelta,
             writer: uid,
             created: Math.floor(Date.now() / 1000),
         };

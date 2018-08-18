@@ -2,10 +2,12 @@ require('../style/master.less');
 require('../style/new-post-or-edit-post.less');
 let handlebars = require('handlebars');
 let queryString = require('query-string');
+let Quill = require('quill');
 let requests = require('../util/requests');
 
 let postError = document.getElementById('post-error');
 let postKeyIfEditing;
+let quill;
 
 /**
  * Is called when the body loads. Initializes the page.
@@ -57,9 +59,22 @@ window.onLoadInit = function onLoadBodyInit() {
             isEditing: postKeyIfEditing,
         });
 
+        quill = new Quill('#body-input', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'link'],
+                    [{ header: [false, 1, 2] }],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    ['blockquote', 'code-block'],
+                ],
+            },
+            placeholder: 'Compose your post here!',
+        });
+
         if (postIfEditing) {
             document.getElementById('title-input').value = postIfEditing.title;
-            document.getElementById('body-input').value = postIfEditing.body;
+            quill.setContents(postIfEditing.bodyDelta);
         }
     }).catch((error) => {
         postError.innerHTML = error.message;
@@ -72,7 +87,6 @@ window.onLoadInit = function onLoadBodyInit() {
  */
 window.onClickSubmitPost = function onClickSubmitNewPostFromInputs() {
     let title = document.getElementById('title-input').value;
-    let body = document.getElementById('body-input').value;
 
     let blogKey = queryString.parse(window.location.search).blogKey || '';
 
@@ -82,11 +96,11 @@ window.onClickSubmitPost = function onClickSubmitNewPostFromInputs() {
             blogKey,
             postKeyIfEditing,
             title,
-            body,
+            bodyDelta: quill.getContents(),
         },
         true,
     ).then(() => {
-        // TODO: Go to the blog page.
+        window.location.href = `./edit-blog?key=${blogKey}`;
     }).catch((error) => {
         postError.innerHTML = error.message;
     });

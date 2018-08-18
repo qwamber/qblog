@@ -16,9 +16,19 @@ body {
     width: 100%;
     height: 100%;
     margin-top: 0px;
-    padding: 128px calc(50% - 256px);
+    padding: 128px calc(50% - 384px);
     border-radius: 0px;
     box-shadow: none;
+
+    .body-input-and-label-container {
+        margin: 0px 0px 40px;
+
+        label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+    }
 
     h2 {
         margin-right: 16px;
@@ -27,5 +37,45 @@ body {
     h2, .normal-button-container {
         display: inline-block;
         vertical-align: top;
+    }
+
+    .body-input-container {
+        .ql-toolbar {
+            background-color: white;
+        }
+
+        .ql-container {
+            background-color: white;
+            padding: 24px;
+
+            .ql-editor {
+                font-size: 18px;
+                font-family: 'Noticia Text', serif;
+            }
+
+            .ql-editor::before {
+                /*
+                    This is Quill.js's generated placeholder, which should have
+                    the same left distance as the normal content.
+                 */
+                left: 24px;
+
+                color: rgba(0, 0, 0, 0.35);
+            }
+
+            p {
+                margin: 16px 0px;
+            }
+
+            h1 {
+                margin: 20px 0px 12px;
+                font-size: 30px;
+            }
+
+            h2 {
+                margin: 18px 0px 12px;
+                font-size: 24px;
+            }
+        }
     }
 }

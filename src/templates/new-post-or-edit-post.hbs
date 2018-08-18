@@ -2,6 +2,18 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <link
+            href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="http://yui.yahooapis.com/3.18.1/build/cssreset-context/cssreset-context-min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="http://yui.yahooapis.com/3.18.1/build/cssbase-context/cssbase-context-min.css"
+        />
     </head>
     <body onload="onLoadInit();">
         <div class="header header-with-background">
@@ -24,10 +36,16 @@
                     <input id="title-input" type="text" />
                     <span id="post-error" class="error-message"></span>
                 </p>
-                <p>
+                <div class="body-input-and-label-container">
                     <label for="body-input">Post Body</label>
-                    <textarea id="body-input"></textarea>
-                </p>
+                    <div
+                        class="body-input-container yui3-cssreset yui3-cssbase"
+                    >
+                        <!-- Quill.js generates the toolbar here and edits
+                             this `body-input` for the input. -->
+                        <div id="body-input"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
