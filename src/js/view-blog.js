@@ -21,15 +21,26 @@ window.onLoadInit = function onLoadBodyInit() {
         false,
     ).then((blog) => {
         let postKeys = Object.keys(blog.posts || {});
-        let notFeaturedPosts = {};
+        let notFeaturedPostKeys = [];
 
         for (let i = 0; i < postKeys.length; i++) {
             if (postKeys[i] !== blog.featuredPostKey) {
-                notFeaturedPosts[postKeys[i]] = blog.posts[postKeys[i]];
+                notFeaturedPostKeys.push(postKeys[i]);
             }
         }
 
-        let blogWithProperties = Object.assign({}, blog, { notFeaturedPosts });
+        let sortedNotFeaturedPostKeys = notFeaturedPostKeys.sort(
+            (postKeyA, postKeyB) => {
+                return (blog.posts[postKeyB].created || 0)
+                    - (blog.posts[postKeyA].created || 0);
+            },
+        );
+
+        let blogWithProperties = Object.assign(
+            {},
+            blog,
+            { sortedNotFeaturedPostKeys },
+        );
 
         document.getElementById('body').innerHTML = bodyInnerTemplate(
             blogWithProperties,

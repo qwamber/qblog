@@ -31,22 +31,22 @@
             id="blog-list-items-template"
         >
             <ul>
-                {{#each evenBlogs}}
+                {{#each sortedEvenBlogKeys}}
                 <li>
                     <h3>
-                        <a href="./edit-blog?key={{@key}}">
-                            {{name}}
+                        <a href="./edit-blog?key={{this}}">
+                            {{lookup (lookup ../blogs this) 'name'}}
                         </a>
                     </h3>
                 </li>
                 {{/each}}
             </ul>
             <ul>
-                {{#each oddBlogs}}
+                {{#each sortedOddBlogKeys}}
                 <li>
                     <h3>
-                        <a href="./edit-blog?key={{@key}}">
-                            {{name}}
+                        <a href="./edit-blog?key={{this}}">
+                            {{lookup (lookup ../blogs this) 'name'}}
                         </a>
                     </h3>
                 </li>

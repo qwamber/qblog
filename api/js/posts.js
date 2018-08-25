@@ -66,12 +66,18 @@ module.exports.newPostOrEditPost = function apiCreateNewBlogPostOrEditBlogPost(
             );
         }
 
-        return db.push(
-            `blogs/${blogKey}/posts/`,
-            newPostObject,
-        );
-    }).then((key) => {
-        res.status(200).json({ postKey: key });
+        return Promise.all([
+            db.push(
+                `blogs/${blogKey}/posts/`,
+                newPostObject,
+            ),
+            db.write(
+                `blogs/${blogKey}/lastEdited`,
+                Math.floor(Date.now() / 1000),
+            ),
+        ]);
+    }).then((keys) => {
+        res.status(200).json({ postKey: keys[0] });
     }).catch((error) => {
         errors.respondWithErrorJSON(res, error);
     });

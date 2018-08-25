@@ -23,12 +23,27 @@ window.onLoadInit = function onLoadBodyInit() {
         {},
         true,
     ).then((blog) => {
-        let blogWithKey = Object.assign({}, blog, { key });
-
-        document.getElementById('body').innerHTML = bodyInnerTemplate(
-            blogWithKey,
+        let sortedPostKeys = Object.keys(blog.posts || {}).sort(
+            (postKeyA, postKeyB) => {
+                return (blog.posts[postKeyB].created || 0)
+                    - (blog.posts[postKeyA].created || 0);
+            },
         );
-        document.title = titleInnerTemplate(blogWithKey);
+
+        let blogWithProperties = Object.assign(
+            {},
+            blog,
+            { key, sortedPostKeys },
+        );
+
+        /*
+            Posts do not need to be sorted because the keys are already ordered
+            by creation date.
+         */
+        document.getElementById('body').innerHTML = bodyInnerTemplate(
+            blogWithProperties,
+        );
+        document.title = titleInnerTemplate(blogWithProperties);
     }).catch((error) => {
         document.getElementById('body').innerHTML = error.message;
     });

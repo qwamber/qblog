@@ -30,14 +30,16 @@
                     {{lookup (lookup posts featuredPostKey) 'body'}}
                 </p>
                 <ul id="not-featured-post-list">
-                    {{#each notFeaturedPosts}}
+                    {{#each sortedNotFeaturedPostKeys}}
                     <li>
                         <h3>
-                            <img src="{{featuredImageSource}}" />
+                            <img
+                                src="{{lookup (lookup ../posts this) 'featuredImageSource'}}"
+                            />
                             <a
-                                href="./view-post?blogKey={{../key}}&postKey={{@key}}"
+                                href="./view-post?blogKey={{../key}}&postKey={{this}}"
                             >
-                                {{title}}
+                                {{lookup (lookup ../posts this) 'title'}}
                             </a>
                         </h3>
                     </li>

@@ -37,13 +37,13 @@
                 </div>
                 <div id="post-list">
                     <ul>
-                        {{#each posts}}
+                        {{#each sortedPostKeys}}
                         <li>
                             <h4>
                                 <a
-                                    href="./new-post-or-edit-post?blogKey={{../key}}&postKey={{@key}}"
+                                    href="./new-post-or-edit-post?blogKey={{../key}}&postKey={{this}}"
                                 >
-                                    {{title}}
+                                    {{lookup (lookup ../posts this) 'title'}}
                                 </a>
                             </h4>
                         </li>

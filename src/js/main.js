@@ -17,22 +17,30 @@ window.onLoadInit = function onLoadBodyInit() {
         {},
         true,
     ).then((blogs) => {
-        let evenBlogs = {};
-        let oddBlogs = {};
+        // The even-odd system is used to create two colums of blogs.
+        let sortedEvenBlogKeys = [];
+        let sortedOddBlogKeys = [];
         let isCurrentlyEven = true;
 
-        Object.keys(blogs).forEach((key) => {
+        let sortedKeys = Object.keys(blogs).sort((blogKeyA, blogKeyB) => {
+            return (blogs[blogKeyB].lastEdited || 0)
+                - (blogs[blogKeyA].lastEdited || 0);
+        });
+
+        console.log(blogs, sortedKeys);
+
+        sortedKeys.forEach((key) => {
             if (isCurrentlyEven) {
-                evenBlogs[key] = blogs[key];
+                sortedEvenBlogKeys.push(key);
             } else {
-                oddBlogs[key] = blogs[key];
+                sortedOddBlogKeys.push(key);
             }
 
             isCurrentlyEven = !isCurrentlyEven;
         });
 
         document.getElementById('blog-list').innerHTML = blogListTemplate(
-            { evenBlogs, oddBlogs },
+            { sortedEvenBlogKeys, sortedOddBlogKeys, blogs },
         );
     }).catch((error) => {
         document.getElementById('blog-list').innerHTML = error.message;
